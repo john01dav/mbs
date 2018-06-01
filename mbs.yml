@@ -1,0 +1,9 @@
+mbs-format-version: 0 #format versions are incremented as a simple integer
+modules: #each node in the modules map represents a module
+  libmbs: #the name of the module; creates a cmake target of module-<module-name> with output file being simply <module-name><.so/.dll/.exe/etc.>
+    type: library #valid module types are library and application
+    library-type: static #this entry only has meaning to the library module type, options are both, static, dynamic. The cmake target for library types is <module-name>-static, <module-name>-dynamic, or both depending on the value of this entry
+  mbs:
+    type: application
+    dependencies: #optional node; lists the modules of library type that this module will be linked to in <module-name>-static/<module-name>-dynamic format
+     - libmbs-static
