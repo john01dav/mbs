@@ -31,4 +31,5 @@ cmake build procedure:
 All of MBS's dependencies are included in the repository via git submodules, or are in the C++17 standard library. A
 compiler with C++17 (namely, the filesystem library) support is required to build MBS. The provided cmake files for
 building MBS are only tested with GCC and Clang on Linux, however they should work for all other GCC-compatible
-compilers. The CMakeLists.txt file may need to be changed to support non-GCC-compatible compilers (ie. MSVC).
+compilers. The CMakeLists.txt file may need to be changed to support non-GCC-compatible compilers (ie. MSVC), however 
+the code should be compatible with all C++17 compliant compilers.

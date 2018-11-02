@@ -7,4 +7,4 @@ add_subdirectory(yaml-cpp)
 include_directories(yaml-cpp/include)
 
 include(mbs-cmake.cmake)
-target_link_libraries(module-mbs yaml-cpp stdc++fs)
+target_link_libraries(module-libmbs-static yaml-cpp stdc++fs)
