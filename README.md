@@ -22,11 +22,13 @@ projects using MBS should not do this, and instead should .gitignore (or otherwi
 MBS includes the cmake file in version control, all that is necessary to build MBS is a recursive clone then a standard
 cmake build procedure:
 
-    git clone --recurse-submodules https://github.com/john01dav/mbs.git
-    mkdir build
-    cd build
-    cmake .. -DCMAKE_BUILD_TYPE-Release
-    make -j 8
+```shell
+git clone --recurse-submodules https://github.com/john01dav/mbs.git
+mkdir mbs/build
+cd mbs/build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j8
+```
 
 All of MBS's dependencies are included in the repository via git submodules, or are in the C++17 standard library. A
 compiler with C++17 (namely, the filesystem library) support is required to build MBS. The provided cmake files for
