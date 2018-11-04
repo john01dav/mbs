@@ -33,3 +33,9 @@ compiler with C++17 (namely, the filesystem library) support is required to buil
 building MBS are only tested with GCC and Clang on Linux, however they should work for all other GCC-compatible
 compilers. The CMakeLists.txt file may need to be changed to support non-GCC-compatible compilers (ie. MSVC), however 
 the code should be compatible with all C++17 compliant compilers.
+
+Installation on Arch Linux
+------------
+MBS is available in the Arch Linux User Repository (aur) under the name 
+[mbs-git](https://aur.archlinux.org/packages/mbs-git/). This AUR package is maintained by a thrid party and unofficial 
+with respect to both Arch Linux and MBS, and neither makes any claims regarding its veracity or lack of malicious code.
