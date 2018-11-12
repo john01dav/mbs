@@ -1,4 +1,4 @@
-mbs-format-version: 0 #format versions are incremented as a simple integer
+mbs-format-version: 1 #format versions are incremented as a simple integer
 modules: #each node in the modules map represents a module
   libmbs: #the name of the module; creates a cmake target of module-<module-name> with output file being simply <module-name><.so/.dll/.exe/etc.>
     type: library #valid module types are library and application
