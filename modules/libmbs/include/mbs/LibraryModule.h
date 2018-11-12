@@ -11,7 +11,7 @@ namespace mbs {
     public:
         LibraryModule(const std::string &name, const YAML::Node &node);
 
-        void outputToCmake(std::ostream &out) const override;
+        void outputToCmake(std::ostream &out, const MbsProject *moduleData) const override;
         void outputLinkingToCmake(std::ostream &out) const override;
 
         LibraryModule(const LibraryModule &) = delete;

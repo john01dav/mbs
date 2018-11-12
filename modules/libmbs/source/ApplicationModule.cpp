@@ -2,10 +2,10 @@
 
 using namespace mbs;
 
-void ApplicationModule::outputToCmake(std::ostream &out) const {
+void ApplicationModule::outputToCmake(std::ostream &out, const MbsProject *moduleData) const {
     outputFileList(out);
     out << "add_executable(module-" << name() << " ${MBS_MODULE_" << name() << "_FILES})" << std::endl;
-    outputIncludeList(out, "module-" + name());
+    outputIncludeList(out, "module-" + name(), moduleData);
     out << "set_target_properties(module-" << name() << " PROPERTIES OUTPUT_NAME " << name() << ")" << std::endl;
 }
 

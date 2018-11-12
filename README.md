@@ -39,5 +39,5 @@ the code should be compatible with all C++17 compliant compilers.
 Installation on Arch Linux
 ------------
 MBS is available in the Arch Linux User Repository (aur) under the name 
-[mbs-git](https://aur.archlinux.org/packages/mbs-git/). This AUR package is maintained by a thrid party and unofficial 
+[mbs-git](https://aur.archlinux.org/packages/mbs-git/). This AUR package is maintained by a third party and unofficial 
 with respect to both Arch Linux and MBS, and neither makes any claims regarding its veracity or lack of malicious code.

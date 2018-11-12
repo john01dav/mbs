@@ -8,6 +8,7 @@
 #include "mbs/MbsException.h"
 #include "mbs/ApplicationModule.h"
 #include "mbs/LibraryModule.h"
+#include "mbs/MbsProject.h"
 
 using namespace mbs;
 
@@ -62,13 +63,13 @@ void Module::outputFileList(std::ostream &out) const {
     out << ")" << std::endl;
 }
 
-void Module::outputIncludeList(std::ostream &out, const std::string &targetName) const {
+void Module::outputIncludeList(std::ostream &out, const std::string &targetName, const MbsProject *moduleData) const {
     out << "target_include_directories(" << targetName << " PRIVATE modules/" << m_name << "/include)" << std::endl;
-    for(const std::string &dependency : m_dependencies){
-        std::string dependencyPathString;
-        if(endsWith(dependency, "-static")) dependencyPathString = std::string(dependency.begin(), dependency.end()-7);
-        else if(endsWith(dependency, "-dynamic")) dependencyPathString = std::string(dependency.begin(), dependency.end()-8);
-        out << "target_include_directories(" << targetName << " PRIVATE modules/" << dependencyPathString << "/include)" << std::endl;
+
+    std::set<std::string> dependencies;
+    buildDependencyList(&dependencies, moduleData, this);
+    for(const std::string &dependency : dependencies){
+        out << "target_include_directories(" << targetName << " PRIVATE modules/" << dependency << "/include)" << std::endl;
     }
 }
 
@@ -76,23 +77,28 @@ void Module::printPathInSourceSet(const std::filesystem::path &path, std::ostrea
     out << "    " << path.string() << std::endl;
 }
 
-bool Module::endsWith(const std::string &str, const std::string &suffix) {
-    if(str.length() < suffix.length()) return false;
-    for(unsigned i=1;i<=suffix.length();++i){
-        if(str[str.length()-i] != suffix[suffix.length()-i]){
-            return false;
-        }
+std::pair<std::string, std::string> Module::parseDependencyDeclaration(const std::string &dependencyDeclaration) {
+    auto it = std::find(dependencyDeclaration.begin(), dependencyDeclaration.end(), '-');
+    std::string moduleName(dependencyDeclaration.begin(), it);
+    std::string dependencyType(it+1,dependencyDeclaration.end());
+
+    if(dependencyType != "static" && dependencyType != "dynamic"){
+        throw MbsException("Improper library type specification: " + dependencyType);
     }
-    return true;
+
+    return {moduleName, dependencyType};
 }
 
-
-
-
-
-
-
-
-
-
-
+void Module::buildDependencyList(std::set<std::string> *dependencies, const MbsProject *moduleData, const mbs::Module *module) const {
+    for(const std::string &dependencyName : module->m_dependencies){
+        auto parsedDependencyDeclaration = parseDependencyDeclaration(dependencyName);
+        if(dependencies->count(parsedDependencyDeclaration.first) == 0){ //if this is the first time that this module is being processed in this context
+            dependencies->insert(parsedDependencyDeclaration.first);
+            const Module *dependency = moduleData->getModule(parsedDependencyDeclaration.first);
+            if(dependency == nullptr) throw MbsException("Unknown module " + parsedDependencyDeclaration.first + " listed as dependency.");
+            if(dependency != this) { //allow for circular dependencies
+                buildDependencyList(dependencies, moduleData, dependency);
+            }
+        }
+    }
+}

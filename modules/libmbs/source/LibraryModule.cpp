@@ -22,16 +22,16 @@ LibraryModule::LibraryModule(const std::string &name, const YAML::Node &node) : 
     }
 }
 
-void LibraryModule::outputToCmake(std::ostream &out) const {
+void LibraryModule::outputToCmake(std::ostream &out, const MbsProject *moduleData) const {
     outputFileList(out);
     if(m_isStatic){
         out << "add_library(module-" << name() << "-static STATIC ${MBS_MODULE_" << name() << "_FILES})" << std::endl;
-        outputIncludeList(out, "module-" + name() + "-static");
+        outputIncludeList(out, "module-" + name() + "-static", moduleData);
         out << "set_target_properties(module-" << name() << "-static PROPERTIES OUTPUT_NAME " << name() << ")" << std::endl;
     }
     if(m_isDynamic){
         out << "add_library(module-" << name() << "-dynamic SHARED ${MBS_MODULE_" << name() << "_FILES})" << std::endl;
-        outputIncludeList(out, "module-" + name() + "-dynamic");
+        outputIncludeList(out, "module-" + name() + "-dynamic", moduleData);
         out << "set_target_properties(module-" << name() << "-dynamic PROPERTIES OUTPUT_NAME " << name() << ")" << std::endl;
     }
 }

@@ -32,7 +32,7 @@ void MbsProject::outputToCmake(const std::string &cmakeFile) {
                 "#directory then re-run mbs." << std::endl;
 
         for(Module *module : m_modules){
-            module->outputToCmake(fout);
+            module->outputToCmake(fout, this);
             fout << std::endl;
         }
 
@@ -45,12 +45,21 @@ void MbsProject::outputToCmake(const std::string &cmakeFile) {
     }
 }
 
+const Module* MbsProject::getModule(const std::string &name) const {
+    for(Module *module : m_modules){
+        if(module->name() == name){
+            return module;
+        }
+    }
+    return nullptr;
+}
+
 void MbsProject::verifyFormatVersion(const YAML::Node &rootNode) {
     if(!rootNode["mbs-format-version"]) throw MbsException("The mbs-format-version property must exist in mbs.yml");
 
     unsigned version = rootNode["mbs-format-version"].as<unsigned>();
 
-    if(version > MBS_FORMAT_VERSION){
+    if(version < MIN_MBS_FORMAT_VERSION || version > MAX_MBS_FORMAT_VERSION){
         throw MbsException("The mbs version " + std::to_string(version) + " is not supported by this version of mbs.");
     }
 }
