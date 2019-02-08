@@ -13,6 +13,10 @@ The developer can then run MBS to convert the module specification in YAML to cm
 a cmake project. This allows the high-level specification of MBS to be easily used with the low-level details of cmake,
 while simultaneously taking advantage of cmake's support for many different build environments.
 
+Usage
+-----
+The next section gives instructions for getting MBS on your system. Documentation on how to use MBS once it's intalled is available in [USAGE.md](https://github.com/john01dav/mbs/blob/master/USAGE.md), in the root of the project.
+
 Building
 --------
 In MBS, the modules are specified in a mbs.yml file that then needs to be converted to a cmake file to be included in a
