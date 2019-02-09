@@ -9,6 +9,8 @@ zero or more dependencies, which will be linked to the module. If an application
 that library module depends on another library module, then the application module is able to use the second library
 module and will be linked to it.
 
+Becuase CMake has many useful features, mostly it's fairly comprehensive multi-platform library system and its ability to work well with a variety of IDEs and backend build systems (ie. Ninja, Make, CLion, make), MBS is built on top of CMake. That is, MBS generates CMake scripts that then integrate with CMake scripts that you provide allowing both modular and conceptual definitions of what is in your project and full compatability with the well-established world of Cmake. For this reason, it is important to read this entire document to understand how to use MBS -- I have gotten questions before that would have been fixed by reading especiall the last section on how to use MBS with CMake.
+
 Directory Structure
 -------------------
 A typical MBS project's directory structure looks similar to the following:
