@@ -28,7 +28,7 @@ cmake build procedure:
 
 ```shell
 git clone --recurse-submodules https://github.com/john01dav/mbs.git
-mkdir mbs/build
+mkdir mbs/build -p
 cd mbs/build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j8
