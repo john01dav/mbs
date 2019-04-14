@@ -78,7 +78,7 @@ void Module::printPathInSourceSet(const std::filesystem::path &path, std::ostrea
 }
 
 std::pair<std::string, std::string> Module::parseDependencyDeclaration(const std::string &dependencyDeclaration) {
-    auto it = std::find(dependencyDeclaration.begin(), dependencyDeclaration.end(), '-');
+    auto it = std::find(dependencyDeclaration.rbegin(), dependencyDeclaration.rend(), '-').base()-1;
     std::string moduleName(dependencyDeclaration.begin(), it);
     std::string dependencyType(it+1,dependencyDeclaration.end());
 
