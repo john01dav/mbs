@@ -39,6 +39,6 @@ void LibraryModule::outputToCmake(std::ostream &out, const MbsProject *moduleDat
 void LibraryModule::outputLinkingToCmake(std::ostream &out) const {
     for(const std::string &dependency : dependencies()){
         if(m_isStatic) out << "target_link_libraries(module-" << name() << "-static module-" << dependency << ")" << std::endl;
-        if(m_isStatic) out << "target_link_libraries(module-" << name() << "-dynamic module-" << dependency << ")" << std::endl;
+        if(m_isDynamic) out << "target_link_libraries(module-" << name() << "-dynamic module-" << dependency << ")" << std::endl;
     }
 }
